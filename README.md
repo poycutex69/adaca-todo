@@ -5,8 +5,8 @@
 ### 1. Clone the repository
 ```bash
 # Clone this repository and navigate into the project directory
-# git clone <repo-url>
-cd todo
+# git clone https://github.com/poycutex69/adaca-todo
+cd adaca-todo
 ```
 
 ### 2. Install dependencies
