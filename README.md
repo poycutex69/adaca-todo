@@ -1,5 +1,8 @@
 # Todo API - Laravel Project
 
+**Laravel Version:** 12.x  
+**PHP Version:** 8.2+
+
 ## Setup Instructions
 
 ### 1. Clone the repository
