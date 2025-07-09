@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreTodoRequest;
+use App\Http\Requests\UpdateTodoRequest;
 use App\Http\Resources\TodoCollection;
 use App\Http\Resources\TodoResource;
 use App\Models\Todo;
@@ -12,7 +14,7 @@ use Illuminate\Http\JsonResponse;
 class TodoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of todos.
      */
     public function index(Request $request): JsonResponse
     {
@@ -38,21 +40,18 @@ class TodoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created todo.
      */
-    public function store(Request $request): JsonResponse
+    public function store(StoreTodoRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'title' => 'required|string|min:3|max:100',
-            'completed' => 'boolean',
-        ]);
+        $validated = $request->validated();
 
         $todo = Todo::create($validated);
         return (new TodoResource($todo))->response()->setStatusCode(201);
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified todo.
      */
     public function show(Todo $todo): JsonResponse
     {
@@ -60,21 +59,18 @@ class TodoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified todo.
      */
-    public function update(Request $request, Todo $todo): JsonResponse
+    public function update(UpdateTodoRequest $request, Todo $todo): JsonResponse
     {
-        $validated = $request->validate([
-            'title' => 'sometimes|required|string|min:3|max:100',
-            'completed' => 'sometimes|boolean',
-        ]);
+        $validated = $request->validated();
 
         $todo->update($validated);
         return (new TodoResource($todo))->response();
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified todo.
      */
     public function destroy(Todo $todo): JsonResponse
     {
